@@ -1,7 +1,7 @@
 #include "CNeoMatrix.h"
 
 CNeoMatrix::CNeoMatrix(rmt_channel_t channel, gpio_num_t gpio, uint32_t rows, uint32_t columns, EType type)
-    :  CNeoPixels(channel, gpio, rows * columns, type),
+    : CNeoPixels(channel, gpio, rows * columns, type),
       m_rows(rows),
       m_columns(columns)
 {
