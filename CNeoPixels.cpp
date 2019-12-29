@@ -53,12 +53,26 @@ CColor CNeoPixels::color_with_correction(CColor color)
 
 void CNeoPixels::draw(uint32_t number, CColor color)
 {
+    assert(number < m_size);
     m_pixels[number] = color_with_correction(color);
 }
 
 void CNeoPixels::draw(uint32_t number, uint8_t r, uint8_t g, uint8_t b)
 {
     draw(number, CColor(r, g, b));
+}
+
+void CNeoPixels::fill(CColor color)
+{
+    for(uint32_t i = 0; i < m_size; ++i)
+    {
+        draw(i, color);
+    }
+}
+
+void CNeoPixels::fill(uint8_t r, uint8_t g, uint8_t b)
+{
+    fill(CColor(r, g, b));
 }
 
 CColor *CNeoPixels::pixels()

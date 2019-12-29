@@ -20,6 +20,8 @@ public:
     void brightness(uint8_t max_brightness_percent);
     void draw(uint32_t number, uint8_t r, uint8_t g, uint8_t b);
     void draw(uint32_t number, CColor color);
+    void fill(CColor color);
+    void fill(uint8_t r, uint8_t g, uint8_t b);
     void flush();
 
 private:
