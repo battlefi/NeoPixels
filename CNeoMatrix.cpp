@@ -1,19 +1,22 @@
 #include "CNeoMatrix.h"
 
-CNeoMatrix::CNeoMatrix(rmt_channel_t channel, gpio_num_t gpio, uint32_t rows, uint32_t columns, EType type)
-    : CNeoPixels(channel, gpio, rows * columns, type),
-      m_rows(rows),
-      m_columns(columns)
+CNeoMatrix::CNeoMatrix(rmt_channel_t channel, gpio_num_t gpio, uint32_t width, uint32_t height, EType type)
+    : CNeoPixels(channel, gpio, width * height, type),
+      m_width(width),
+      m_height(height)
 {
 }
-
-void CNeoMatrix::draw(uint32_t row, uint32_t column, CColor color)
+void CNeoMatrix::show(CColor *pixels)
 {
-    uint32_t number = row * m_columns + column;
-    CNeoPixels::draw(number, color);
+    CNeoPixels::show(pixels);
 }
 
-void CNeoMatrix::draw(uint32_t row, uint32_t column, uint8_t r, uint8_t g, uint8_t b)
+uint32_t CNeoMatrix::width()
 {
-    draw(row, column, CColor(r, g, b));
+    return m_width;
+}
+
+uint32_t CNeoMatrix::height()
+{
+    return m_height;
 }

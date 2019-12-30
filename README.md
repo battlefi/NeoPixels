@@ -8,24 +8,24 @@ Clone repo into the components folder
 
 #### Example with 3 LED's
 ```
-CNeoPixels pixels(RMT_CHANNEL_0, GPIO_NUM_18, 3, CNeoPixels::EType::WS2812B);
-matrix.brightness(20);
-pixels.draw(0, CColor::red());
-pixels.draw(1, CColor::green());
-pixels.draw(2, CColor::blue());
-pixels.flush();
+CNeoPixels stripe(RMT_CHANNEL_0, GPIO_NUM_18, 3, CNeoPixels::EType::WS2812B);
+CColor pixels[3];
+pixels[0] = CColor::red();
+pixels[1] = CColor::green();
+pixels[2] = CColor::blue();
+stripe.show(pixels);
 ```
 
 ### CNeoMatrix
 
 ### Example with 8x8 Matrix
 ```
-CNeoMatrix matrix(RMT_CHANNEL_0, GPIO_NUM_18, 8, 8, CNeoPixels::EType::WS2812B);
-matrix.brightness(20);
-matrix.draw(0, 0, CColor::red());
-matrix.draw(1, 1, CColor::green());
-matrix.draw(2, 2, CColor::blue());
-matrix.flush();
+CNeoMatrix display(RMT_CHANNEL_0, GPIO_NUM_18, 8, 8, CNeoPixels::EType::WS2812B);
+CFrameBuffer fb(display, 20);
+fb.draw(0, 0, CColor::red());
+fb.draw(1, 1, CColor::green());
+fb.draw(2, 2, CColor::blue());
+fb.show();
 ```
 
 
