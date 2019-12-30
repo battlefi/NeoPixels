@@ -4,11 +4,10 @@
 #include <cstring>
 #include <assert.h>
 
-CFrameBuffer::CFrameBuffer(IDisplay &display, uint8_t brightness)
+CFrameBuffer::CFrameBuffer(IDisplay &display)
     : m_width(display.width()),
       m_height(display.height()),
       m_size(m_width * m_height),
-      m_brightness(brightness),
       m_display(display)
 {
     assert(m_size > 0);
@@ -19,7 +18,6 @@ CFrameBuffer::CFrameBuffer(const CFrameBuffer &obj)
     : m_width(obj.m_width),
       m_height(obj.m_height),
       m_size(obj.m_size),
-      m_brightness(obj.m_brightness),
       m_display(obj.m_display)
 {
     m_pixels = new CColor[m_size]();
@@ -45,16 +43,11 @@ void CFrameBuffer::show()
     m_display.show(m_pixels);
 }
 
-CColor CFrameBuffer::color_with_correction(CColor color)
-{
-    return CColor(color.r * m_brightness / 100, color.g * m_brightness / 100, color.b * m_brightness / 100);
-}
-
 void CFrameBuffer::draw(uint32_t x, uint32_t y, CColor color)
 {
     uint32_t number = x * m_height + y;
     assert(number < m_size);
-    m_pixels[number] = color_with_correction(color);
+    m_pixels[number] = color;
 }
 
 CColor CFrameBuffer::color_at(uint32_t x, uint32_t y)

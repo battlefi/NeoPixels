@@ -7,7 +7,7 @@
 class CFrameBuffer
 {
 public:
-    CFrameBuffer(IDisplay &display, uint8_t brightness);
+    CFrameBuffer(IDisplay &display);
     ~CFrameBuffer();
     CFrameBuffer(const CFrameBuffer &obj);
     CFrameBuffer &operator=(const CFrameBuffer &obj);
@@ -26,7 +26,6 @@ private:
     const uint32_t m_width;
     const uint32_t m_height;
     const uint32_t m_size;
-    const uint8_t m_brightness;
     IDisplay &m_display;
     CColor *m_pixels;
 };
