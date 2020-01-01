@@ -16,6 +16,7 @@ public:
     CNeoPixels(rmt_channel_t channel, gpio_num_t gpio, uint32_t size, EType type);
     ~CNeoPixels();
     uint32_t size();
+    void intensity(double intensity);
     void show(CColor *pixels);
 
 private:
@@ -27,4 +28,6 @@ private:
     rmt_item32_t m_logic_zero;
     rmt_item32_t m_logic_one;
     rmt_item32_t *m_items;
+    double m_intensity;
+    uint16_t m_scale;
 };

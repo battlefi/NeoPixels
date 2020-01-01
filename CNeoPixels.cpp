@@ -11,6 +11,8 @@ CNeoPixels::CNeoPixels(rmt_channel_t channel, gpio_num_t gpio, uint32_t size, ET
 {
     assert(m_size > 0);
 
+    intensity(1);
+
     if (type == EType::WS2812B)
     {
         m_logic_zero.level0 = 1;
@@ -48,6 +50,16 @@ uint32_t CNeoPixels::size()
     return m_size;
 }
 
+void CNeoPixels::intensity(double intensity)
+{
+    assert(intensity >= 0);
+    assert(intensity <= 1);
+    m_intensity = intensity;
+
+    // range of m_scale 0 - 256,  -> 256 == 100%
+    m_scale = static_cast<uint16_t>(256.0 * intensity);
+}
+
 void CNeoPixels::show(CColor *pixels)
 {
     unsigned int itemCnt = 0;
@@ -57,7 +69,7 @@ void CNeoPixels::show(CColor *pixels)
         {
             if (j < 8)
             {
-                if (pixels[i].g & (1 << (7 - j)))
+                if (((pixels[i].g * m_scale) >> 8) & (1 << (7 - j)))
                     m_items[itemCnt++] = m_logic_one;
                 else
                     m_items[itemCnt++] = m_logic_zero;
@@ -65,14 +77,14 @@ void CNeoPixels::show(CColor *pixels)
 
             else if (j < 16)
             {
-                if (pixels[i].r & (1 << (7 - (j % 8))))
+                if (((pixels[i].r * m_scale) >> 8) & (1 << (7 - (j % 8))))
                     m_items[itemCnt++] = m_logic_one;
                 else
                     m_items[itemCnt++] = m_logic_zero;
             }
             else
             {
-                if (pixels[i].b & (1 << (7 - (j % 8))))
+                if (((pixels[i].b * m_scale) >> 8) & (1 << (7 - (j % 8))))
                     m_items[itemCnt++] = m_logic_one;
                 else
                     m_items[itemCnt++] = m_logic_zero;
