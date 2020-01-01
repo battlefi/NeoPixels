@@ -50,6 +50,11 @@ void CFrameBuffer::draw(uint32_t x, uint32_t y, CColor color)
     m_pixels[number] = color;
 }
 
+void CFrameBuffer::draw(uint32_t x, uint32_t y, uint32_t H, double S, double V)
+{
+    draw(x, y, CColor::from_hsv(H, S, V));
+}
+
 CColor CFrameBuffer::color_at(uint32_t x, uint32_t y)
 {
     uint32_t number = x * m_height + y;
@@ -64,6 +69,11 @@ void CFrameBuffer::fill(CColor color)
         for (uint32_t j = 0; j < m_height; ++j)
             draw(i, j, color);
     }
+}
+
+void CFrameBuffer::fill(uint32_t H, double S, double V)
+{
+    fill(CColor::from_hsv(H, S, V));
 }
 
 uint32_t CFrameBuffer::size()

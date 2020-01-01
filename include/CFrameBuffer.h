@@ -14,15 +14,16 @@ public:
 
     uint32_t size();
     void fill(CColor color);
+    void fill(uint32_t H, double S, double V);
 
     void draw(uint32_t x, uint32_t y, CColor color);
+    void draw(uint32_t x, uint32_t y, uint32_t H, double S, double V);
     uint32_t width();
     uint32_t height();
     CColor color_at(uint32_t x, uint32_t y);
     void show();
 
 private:
-    CColor color_with_correction(CColor color);
     const uint32_t m_width;
     const uint32_t m_height;
     const uint32_t m_size;
