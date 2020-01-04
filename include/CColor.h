@@ -14,6 +14,8 @@ public:
     static CColor green() { return CColor(0, 255, 0); };
     static CColor blue() { return CColor(0, 0, 255); };
     static CColor black() { return CColor(0, 0, 0); };
+    static CColor yellow() { return CColor(255, 255, 0); };
+
 
     uint8_t r;
     uint8_t g;
